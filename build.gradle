@@ -1,8 +1,14 @@
-apply plugin: 'java'
+apply plugin: "java"
+apply plugin: "application"
 
 sourceCompatibility = 1.8
-version = '1.0'
+version = "1.0"
 
 repositories {
     mavenCentral()
 }
+
+jar.manifest.attributes("Main-Class": "simplemvc.Main")
+
+mainClassName = "simplemvc.Main"
+
