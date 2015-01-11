@@ -10,6 +10,8 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ControllerTest {
+    public static final String ANY_STRING = "any string";
+
     @Mock
     private Model model;
 
@@ -28,7 +30,7 @@ public class ControllerTest {
     @Test
     public void addAction_default_callsAdd() throws Exception {
         Controller controller = make_controller();
-        String aString = "anyString";
+        String aString = ANY_STRING;
 
         controller.addAction(aString);
 
@@ -38,7 +40,7 @@ public class ControllerTest {
     @Test
     public void removeAction_default_callsRemove() throws Exception {
         Controller controller = make_controller();
-        String aString = "anyString";
+        String aString = ANY_STRING;
 
         controller.removeAction(aString);
 
