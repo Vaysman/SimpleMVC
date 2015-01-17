@@ -41,6 +41,10 @@ public class View implements ActionListener {
         }
     }
 
+    public void dispose() {
+        frame.dispose();
+    }
+
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.addActionListener(this);

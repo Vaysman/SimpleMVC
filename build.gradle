@@ -15,4 +15,5 @@ mainClassName = "simplemvc.Main"
 dependencies {
     testCompile "junit:junit:4.+"
     testCompile "org.mockito:mockito-core:1.+"
+    testCompile 'org.netbeans:jemmy:2.2.7.5'
 }
