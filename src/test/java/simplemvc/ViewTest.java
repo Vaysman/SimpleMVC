@@ -28,16 +28,13 @@ public class ViewTest {
     @Mock
     private Model model;
 
-    @Mock
-    private Controller controller;
-
     @InjectMocks
     private View view;
 
-
     @Before
     public void showView() {
-        view.show();
+        Controller controller = new Controller(model, view);
+        controller.start();
     }
 
     @After
@@ -52,7 +49,7 @@ public class ViewTest {
 
         pushButton(root, ADD_BUTTON);
 
-        verify(controller).addAction(ANY_STRING);
+        verify(model).addDatum(ANY_STRING);
     }
 
     @Test
@@ -63,7 +60,7 @@ public class ViewTest {
 
         pushButton(root, REMOVE_BUTTON);
 
-        verify(controller).removeAction(ANY_STRING);
+        verify(model).removeDatum(ANY_STRING);
     }
 
     @Test

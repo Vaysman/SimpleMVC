@@ -1,27 +1,39 @@
 package simplemvc;
 
-public class Controller {
-    private View view;
-    private Model model;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    public void setView(View view) {
-        this.view = view;
-    }
+public class Controller implements ActionListener {
+    private final Model model;
+    private final View view;
 
-    public void setModel(Model model) {
+    public Controller(Model model, View view) {
         this.model = model;
+        this.view = view;
+        this.view.setModel(model);
+        this.view.getAdd().addActionListener(this);
+        this.view.getRemove().addActionListener(this);
     }
 
     public void start() {
         view.show();
     }
 
-    public void addAction(String text) {
-        model.addDatum(text);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == view.getAdd()) {
+            onAddButtonClicked();
+        } else if (e.getSource() == view.getRemove()) {
+            onRemoveButtonClicked();
+        }
     }
 
-    public void removeAction(String text) {
-        model.removeDatum(text);
+    public void onAddButtonClicked() {
+        model.addDatum(view.getField().getText());
+    }
+
+    public void onRemoveButtonClicked() {
+        model.removeDatum(view.getList().getSelectedValue());
     }
 }
 
