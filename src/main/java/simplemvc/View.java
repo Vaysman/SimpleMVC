@@ -4,17 +4,13 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class View implements ActionListener {
+public class View {
     private JFrame frame;
     private JList<String> list;
     private JButton add;
     private JButton remove;
     private JTextField field;
-
-    private Controller controller;
 
     public View() {
         initComponents();
@@ -24,21 +20,8 @@ public class View implements ActionListener {
         list.setModel(model);
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
     public void show() {
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == add) {
-            controller.addAction(field.getText());
-        } else if (e.getSource() == remove) {
-            controller.removeAction(list.getSelectedValue());
-        }
     }
 
     public void dispose() {
@@ -47,9 +30,7 @@ public class View implements ActionListener {
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.addActionListener(this);
         button.setEnabled(false);
-
         return button;
     }
 
@@ -105,6 +86,22 @@ public class View implements ActionListener {
 
         remove = createButton("Remove");
         mainPanel.add(remove);
+    }
+
+    public JButton getAdd() {
+        return add;
+    }
+
+    public JButton getRemove() {
+        return remove;
+    }
+
+    public JTextField getField() {
+        return field;
+    }
+
+    public JList<String> getList() {
+        return list;
     }
 }
 
