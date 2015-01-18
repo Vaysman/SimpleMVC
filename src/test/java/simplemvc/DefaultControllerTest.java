@@ -10,24 +10,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ControllerTest {
+public class DefaultControllerTest {
     public static final String ANY_STRING = "any string";
 
     @Mock
     private Model model;
 
-    @Mock
-    private View view;
-
     @InjectMocks
-    private Controller controller;
-
-    @Test
-    public void start_default_callsShow() throws Exception {
-        controller.start();
-
-        verify(view).show();
-    }
+    private DefaultController controller;
 
     @Test
     public void addAction_default_callsAdd() throws Exception {

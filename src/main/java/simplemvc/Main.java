@@ -5,17 +5,28 @@ public class Main {
     private View view;
     private Controller controller;
 
-    public static void main(String[] args) {
-        Main main = new Main(new Model(), new View(), new Controller());
-
-        main.start();
-    }
-
     public Main(Model model, View view, Controller controller) {
         this.model = model;
         this.view = view;
         this.controller = controller;
         init();
+    }
+
+    public static void main(String[] args) {
+        Controller controller = makeController(args);
+        Main main = new Main(new Model(), new View(), controller);
+
+        main.start();
+    }
+
+    public static Controller makeController(String... args) {
+        Controller controller = new DefaultController();
+        for (String arg : args) {
+            if(arg.equals("-nothing")) {
+                controller = new DoNothingController();
+            }
+        }
+        return controller;
     }
 
     public void start() {

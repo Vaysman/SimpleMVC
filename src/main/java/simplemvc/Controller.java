@@ -1,27 +1,14 @@
 package simplemvc;
 
-public class Controller {
-    private View view;
-    private Model model;
+public interface Controller {
+    void setView(View view);
 
-    public void setView(View view) {
-        this.view = view;
-    }
+    void setModel(Model model);
 
-    public void setModel(Model model) {
-        this.model = model;
-    }
+    void start();
 
-    public void start() {
-        view.show();
-    }
+    void addAction(String text);
 
-    public void addAction(String text) {
-        model.addDatum(text);
-    }
-
-    public void removeAction(String text) {
-        model.removeDatum(text);
-    }
+    void removeAction(String text);
 }
 
