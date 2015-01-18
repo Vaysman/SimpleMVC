@@ -2,12 +2,10 @@ package simplemvc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
+import java.util.Observer;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -22,7 +20,7 @@ public class ModelTest {
     public static final int ANY_INDEX = 0;
 
     @Mock
-    private ListDataListener listener;
+    private Observer observer;
 
     @Test
     public void addDatum_emptyModel_addsDatumToModel() throws Exception {
@@ -30,23 +28,18 @@ public class ModelTest {
 
         model.addDatum(ANY_STRING);
 
-        assertThat(model.getSize(), is(1));
-        assertThat(model.getElementAt(ANY_INDEX), is(ANY_STRING));
+        assertThat(model.size(), is(1));
+        assertThat(model.get(ANY_INDEX), is(ANY_STRING));
     }
 
     @Test
     public void addDatum_emptyModel_notifiesListener() throws Exception {
         Model model = new Model();
-        model.addListDataListener(listener);
-
-        ArgumentCaptor<ListDataEvent> listDataEventCaptor = ArgumentCaptor.forClass(ListDataEvent.class);
+        model.addObserver(observer);
 
         model.addDatum(ANY_STRING);
 
-        verify(listener).intervalAdded(listDataEventCaptor.capture());
-        assertThat(listDataEventCaptor.getValue().getSource(), is(model));
-        assertThat(listDataEventCaptor.getValue().getIndex0(), is(ANY_INDEX));
-        assertThat(listDataEventCaptor.getValue().getIndex1(), is(ANY_INDEX));
+        verify(observer).update(model, null);
     }
 
     @Test
@@ -56,35 +49,31 @@ public class ModelTest {
 
         model.addDatum(ANOTHER_STRING);
 
-        assertThat(model.getSize(), is(2));
-        assertThat(model.getElementAt(ANY_INDEX), is(ANY_STRING));
-        assertThat(model.getElementAt(1), is(ANOTHER_STRING));
+        assertThat(model.size(), is(2));
+        assertThat(model.get(ANY_INDEX), is(ANY_STRING));
+        assertThat(model.get(1), is(ANOTHER_STRING));
     }
 
     @Test
     public void addDatum_oneElementModel_notifiesListener() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
-        model.addListDataListener(listener);
-        ArgumentCaptor<ListDataEvent> listDataEventCaptor = ArgumentCaptor.forClass(ListDataEvent.class);
+        model.addObserver(observer);
 
         model.addDatum(ANOTHER_STRING);
 
-        verify(listener).intervalAdded(listDataEventCaptor.capture());
-        assertThat(listDataEventCaptor.getValue().getSource(), is(model));
-        assertThat(listDataEventCaptor.getValue().getIndex0(), is(1));
-        assertThat(listDataEventCaptor.getValue().getIndex1(), is(1));
+        verify(observer).update(model, null);
     }
 
     @Test
     public void removeDatum_removeAnyElementFromEmptyModel_doesNothing() throws Exception {
         Model model = new Model();
-        model.addListDataListener(listener);
+        model.addObserver(observer);
 
         model.removeDatum(ANY_STRING);
 
-        verifyZeroInteractions(listener);
-        assertThat(model.getSize(), is(ANY_INDEX));
+        verifyZeroInteractions(observer);
+        assertThat(model.size(), is(ANY_INDEX));
     }
 
     @Test
@@ -94,22 +83,18 @@ public class ModelTest {
 
         model.removeDatum(ANY_STRING);
 
-        assertThat(model.getSize(), is(ANY_INDEX));
+        assertThat(model.size(), is(ANY_INDEX));
     }
 
     @Test
     public void removeDatum_removeExistentElementFromModel_notifiesListener() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
-        model.addListDataListener(listener);
-        ArgumentCaptor<ListDataEvent> listDataEventCaptor = ArgumentCaptor.forClass(ListDataEvent.class);
+        model.addObserver(observer);
 
         model.removeDatum(ANY_STRING);
 
-        verify(listener).intervalRemoved(listDataEventCaptor.capture());
-        assertThat(listDataEventCaptor.getValue().getSource(), is(model));
-        assertThat(listDataEventCaptor.getValue().getIndex0(), is(ANY_INDEX));
-        assertThat(listDataEventCaptor.getValue().getIndex1(), is(ANY_INDEX));
+        verify(observer).update(model, null);
     }
 
 
@@ -117,48 +102,48 @@ public class ModelTest {
     public void removeDatum_removeNonExistentElementFromModel_doesNothing() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
-        model.addListDataListener(listener);
+        model.addObserver(observer);
 
         model.removeDatum(NON_EXISTENT_ELEMENT);
 
-        verifyZeroInteractions(listener);
-        assertThat(model.getSize(), is(1));
+        verifyZeroInteractions(observer);
+        assertThat(model.size(), is(1));
     }
 
     @Test
-    public void getSize_emptyModel_returnsZero() throws Exception {
+    public void size_emptyModel_returnsZero() throws Exception {
         Model model = new Model();
 
-        assertThat(model.getSize(), is(ANY_INDEX));
+        assertThat(model.size(), is(ANY_INDEX));
     }
 
     @Test
-    public void getSize_oneElementModel_returnsOne() throws Exception {
+    public void size_oneElementModel_returnsOne() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
 
-        assertThat(model.getSize(), is(1));
+        assertThat(model.size(), is(1));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void getElementAt_getElementFromEmptyModel_throwsIndexOutOfBoundsException() throws Exception {
-        new Model().getElementAt(ANY_INDEX);
+    public void get_getElementFromEmptyModel_throwsIndexOutOfBoundsException() throws Exception {
+        new Model().get(ANY_INDEX);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void getElementAt_getSecondElementFromOneElementModel_throwsIndexOutOfBoundsException() throws Exception {
+    public void get_getSecondElementFromOneElementModel_throwsIndexOutOfBoundsException() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
 
-        model.getElementAt(1);
+        model.get(1);
     }
 
     @Test()
-    public void getElementAt_getFirstElementFromOneElementModel_returnsFirstElement() throws Exception {
+    public void get_getFirstElementFromOneElementModel_returnsFirstElement() throws Exception {
         Model model = new Model();
         init_oneElement(model, ANY_STRING);
 
-        assertThat(model.getElementAt(0), is(ANY_STRING));
+        assertThat(model.get(0), is(ANY_STRING));
     }
 
     private Model init_oneElement(Model model, String element) {

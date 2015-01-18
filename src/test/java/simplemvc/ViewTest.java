@@ -29,7 +29,7 @@ public class ViewTest {
     private Model model;
 
     @Mock
-    private Controller controller;
+    private DefaultController controller;
 
     @InjectMocks
     private View view;
@@ -124,8 +124,8 @@ public class ViewTest {
     }
 
     private void init_ListWithOneItem() {
-        when(model.getSize()).thenReturn(1);
-        when(model.getElementAt(0)).thenReturn(ANY_STRING);
+        when(model.size()).thenReturn(1);
+        when(model.get(0)).thenReturn(ANY_STRING);
         view.setModel(model);
     }
 

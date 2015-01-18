@@ -6,8 +6,34 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 public class View implements ActionListener {
+    private class ModelWrapper extends AbstractListModel<String> implements Observer{
+        private Model model;
+
+        public ModelWrapper(Model model) {
+            this.model = model;
+            model.addObserver(this);
+        }
+
+        @Override
+        public int getSize() {
+            return model.size();
+        }
+
+        @Override
+        public String getElementAt(int index) {
+            return model.get(index);
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            fireContentsChanged(this, 0, model.size());
+        }
+    }
+
     private JFrame frame;
     private JList<String> list;
     private JButton add;
@@ -21,7 +47,7 @@ public class View implements ActionListener {
     }
 
     public void setModel(Model model) {
-        list.setModel(model);
+        list.setModel(new ModelWrapper(model));
     }
 
     public void setController(Controller controller) {

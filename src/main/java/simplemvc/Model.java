@@ -1,11 +1,10 @@
 package simplemvc;
 
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class Model extends AbstractListModel<String> {
+public class Model extends Observable {
     private List<String> data;
 
     public Model() {
@@ -14,25 +13,24 @@ public class Model extends AbstractListModel<String> {
 
     public void addDatum(String datum) {
         data.add(datum);
-        int addedElementIndex = data.size() - 1;
-        fireIntervalAdded(this, addedElementIndex, addedElementIndex);
+        setChanged();
+        notifyObservers();
     }
 
     public void removeDatum(String datum) {
         int indexOfElementToRemove = data.indexOf(datum);
         if (indexOfElementToRemove != -1) {
             data.remove(indexOfElementToRemove);
-            fireIntervalRemoved(this, indexOfElementToRemove, indexOfElementToRemove);
+            setChanged();
+            notifyObservers();
         }
     }
 
-    @Override
-    public int getSize() {
+    public int size() {
         return data.size();
     }
 
-    @Override
-    public String getElementAt(int index) {
+    public String get(int index) {
         return data.get(index);
     }
 }
