@@ -12,8 +12,9 @@ import org.netbeans.jemmy.operators.JFrameOperator;
 import org.netbeans.jemmy.operators.JListOperator;
 import org.netbeans.jemmy.operators.JTextFieldOperator;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import javax.swing.*;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -105,6 +106,13 @@ public class ViewTest {
 
         JButtonOperator addButton = findButton(root, ADD_BUTTON);
         assertTrue("Add button must be enabled", addButton.isEnabled());
+    }
+
+    @Test
+    public void when_frame_is_created_then_default_close_operation_is_exit() {
+        JFrameOperator root = getRootFrame();
+
+        assertEquals(WindowConstants.EXIT_ON_CLOSE, root.getDefaultCloseOperation());
     }
 
     private JButtonOperator findButton(JFrameOperator root, String buttonName) {
