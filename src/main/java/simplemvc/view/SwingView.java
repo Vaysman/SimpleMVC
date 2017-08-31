@@ -1,5 +1,6 @@
-package simplemvc;
+package simplemvc.view;
 
+import simplemvc.Model;
 import simplemvc.controller.Controller;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class View implements ActionListener {
+public class SwingView implements ActionListener, View {
     private class ModelWrapper extends AbstractListModel<String> implements Observer{
         private Model model;
 
@@ -44,18 +45,21 @@ public class View implements ActionListener {
 
     private Controller controller;
 
-    public View() {
+    public SwingView() {
         initComponents();
     }
 
+    @Override
     public void setModel(Model model) {
         list.setModel(new ModelWrapper(model));
     }
 
+    @Override
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    @Override
     public void show() {
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
     }
@@ -70,6 +74,7 @@ public class View implements ActionListener {
         }
     }
 
+    @Override
     public void dispose() {
         frame.dispose();
     }

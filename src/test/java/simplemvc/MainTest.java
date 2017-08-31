@@ -8,6 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import simplemvc.controller.Controller;
 import simplemvc.controller.DefaultController;
 import simplemvc.controller.DoNothingController;
+import simplemvc.view.SwingView;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,7 +24,7 @@ public class MainTest {
     private Model model;
 
     @Mock
-    private View view;
+    private SwingView view;
 
     @Mock
     private Controller controller;

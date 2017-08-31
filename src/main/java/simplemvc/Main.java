@@ -3,6 +3,8 @@ package simplemvc;
 import simplemvc.controller.Controller;
 import simplemvc.controller.DefaultController;
 import simplemvc.controller.DoNothingController;
+import simplemvc.view.SwingView;
+import simplemvc.view.View;
 
 public class Main {
     private Model model;
@@ -18,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) {
         Controller controller = makeController(args);
-        Main main = new Main(new Model(), new View(), controller);
+        Main main = new Main(new Model(), new SwingView(), controller);
 
         main.start();
     }

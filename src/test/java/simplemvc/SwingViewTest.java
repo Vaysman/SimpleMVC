@@ -12,6 +12,7 @@ import org.netbeans.jemmy.operators.JFrameOperator;
 import org.netbeans.jemmy.operators.JListOperator;
 import org.netbeans.jemmy.operators.JTextFieldOperator;
 import simplemvc.controller.DefaultController;
+import simplemvc.view.SwingView;
 
 import javax.swing.*;
 
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ViewTest {
+public class SwingViewTest {
     public static final String ANY_STRING = "any string";
     public static final String EMPTY_STRING = "";
     public static final String ADD_BUTTON = "Add";
@@ -33,7 +34,7 @@ public class ViewTest {
     private DefaultController controller;
 
     @InjectMocks
-    private View view;
+    private SwingView view;
 
 
     @Before

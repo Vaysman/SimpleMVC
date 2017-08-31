@@ -5,13 +5,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import simplemvc.controller.AbstractController;
+import simplemvc.view.SwingView;
 
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractControllerTest {
     @Mock
-    private View view;
+    private SwingView view;
 
     @Test
     public void start_default_callsShow() throws Exception {

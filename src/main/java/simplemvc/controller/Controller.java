@@ -1,7 +1,7 @@
 package simplemvc.controller;
 
 import simplemvc.Model;
-import simplemvc.View;
+import simplemvc.view.View;
 
 public interface Controller {
     void setView(View view);
