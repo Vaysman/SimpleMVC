@@ -1,4 +1,4 @@
-package simplemvc;
+package simplemvc.controller;
 
 public class DoNothingController extends AbstractController {
 

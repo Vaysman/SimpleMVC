@@ -1,5 +1,9 @@
 package simplemvc;
 
+import simplemvc.controller.Controller;
+import simplemvc.controller.DefaultController;
+import simplemvc.controller.DoNothingController;
+
 public class Main {
     private Model model;
     private View view;

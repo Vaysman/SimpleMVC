@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import simplemvc.controller.AbstractController;
 
 import static org.mockito.Mockito.verify;
 

@@ -1,4 +1,7 @@
-package simplemvc;
+package simplemvc.controller;
+
+import simplemvc.Model;
+import simplemvc.View;
 
 public abstract class AbstractController implements Controller {
     protected View view;
