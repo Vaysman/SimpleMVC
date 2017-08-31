@@ -64,6 +64,7 @@ public class View implements ActionListener {
             controller.addAction(field.getText());
         } else if (e.getSource() == remove) {
             controller.removeAction(list.getSelectedValue());
+            list.clearSelection();
         }
     }
 

@@ -115,6 +115,20 @@ public class ViewTest {
         assertEquals(WindowConstants.EXIT_ON_CLOSE, root.getDefaultCloseOperation());
     }
 
+    @Test
+    public void when_last_item_is_removed_then_remove_button_is_disabled() {
+        Model model = new Model();
+        model.addDatum(ANY_STRING);
+        view.setModel(model);
+        JFrameOperator root = getRootFrame();
+
+        new JListOperator(root, 0).selectItem(0);
+        JButtonOperator removeButton = findButton(root, REMOVE_BUTTON);
+        removeButton.doClick();
+
+        assertFalse("Remove button must be disabled", removeButton.isEnabled());
+    }
+
     private JButtonOperator findButton(JFrameOperator root, String buttonName) {
         return new JButtonOperator(root, buttonName);
     }
