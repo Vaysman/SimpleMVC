@@ -17,6 +17,10 @@ public class Model extends Observable {
         notifyObservers();
     }
 
+    public String get(int index) {
+        return data.get(index);
+    }
+
     public void removeDatum(String datum) {
         int indexOfElementToRemove = data.indexOf(datum);
         if (indexOfElementToRemove != -1) {
@@ -28,9 +32,5 @@ public class Model extends Observable {
 
     public int size() {
         return data.size();
-    }
-
-    public String get(int index) {
-        return data.get(index);
     }
 }

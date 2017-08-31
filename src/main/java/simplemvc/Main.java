@@ -11,7 +11,7 @@ public class Main {
     private View view;
     private Controller controller;
 
-    public Main(Model model, View view, Controller controller) {
+    private Main(Model model, View view, Controller controller) {
         this.model = model;
         this.view = view;
         this.controller = controller;
@@ -25,17 +25,17 @@ public class Main {
         main.start();
     }
 
-    public static Controller makeController(String... args) {
+    static Controller makeController(String... args) {
         Controller controller = new DefaultController();
         for (String arg : args) {
-            if(arg.equals("-nothing")) {
+            if (arg.equals("-nothing")) {
                 controller = new DoNothingController();
             }
         }
         return controller;
     }
 
-    public void start() {
+    void start() {
         controller.start();
     }
 

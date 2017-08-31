@@ -1,7 +1,6 @@
 package simplemvc.controller;
 
 public class DoNothingController extends AbstractController {
-
     @Override
     public void addAction(String text) {
         // do nothing
@@ -12,4 +11,3 @@ public class DoNothingController extends AbstractController {
         // do nothing
     }
 }
-
