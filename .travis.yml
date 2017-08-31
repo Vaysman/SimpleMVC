@@ -1,4 +1,5 @@
 language: java
+sudo: false # faster builds
 
 before_script:
   - "export DISPLAY=:99.0"
