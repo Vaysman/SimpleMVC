@@ -6,6 +6,8 @@ import simplemvc.controller.DoNothingController;
 import simplemvc.view.SwingView;
 import simplemvc.view.View;
 
+import java.util.Objects;
+
 public class Main {
     private Model model;
     private View view;
