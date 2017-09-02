@@ -28,7 +28,7 @@ public class Main {
     static Controller makeController(String... args) {
         Controller controller = new DefaultController();
         for (String arg : args) {
-            if (arg.equals("-nothing")) {
+            if (Objects.equals(arg, "-nothing")) {
                 controller = new DoNothingController();
             }
         }
